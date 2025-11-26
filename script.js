@@ -2,6 +2,130 @@
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
+// ========================================
+// PRELOADER / LOADING SCREEN
+// ========================================
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    setTimeout(() => {
+        preloader.classList.add('hidden');
+        // Initialize AOS after preloader
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    }, 1500);
+});
+
+// ========================================
+// SCROLL PROGRESS BAR
+// ========================================
+const scrollProgress = document.getElementById('scroll-progress');
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollPercentage = (scrollTop / scrollHeight) * 100;
+    scrollProgress.style.width = scrollPercentage + '%';
+});
+
+// ========================================
+// TYPING ANIMATION
+// ========================================
+const typedTextElement = document.getElementById('typed-text');
+const texts = [
+    'Transforming Ideas into Infinite Possibilities',
+    'Building Innovative Web Solutions',
+    'Creating Powerful Mobile Applications',
+    'Developing Smart Python Automation'
+];
+let textIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let typingSpeed = 100;
+
+function typeText() {
+    const currentText = texts[textIndex];
+    
+    if (isDeleting) {
+        typedTextElement.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+        typingSpeed = 50;
+    } else {
+        typedTextElement.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+        typingSpeed = 100;
+    }
+
+    if (!isDeleting && charIndex === currentText.length) {
+        isDeleting = true;
+        typingSpeed = 2000; // Pause at end
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        typingSpeed = 500; // Pause before starting new text
+    }
+
+    setTimeout(typeText, typingSpeed);
+}
+
+// Start typing animation
+if (typedTextElement) {
+    setTimeout(typeText, 1000);
+}
+
+// ========================================
+// DARK MODE TOGGLE
+// ========================================
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+// Check for saved theme preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        
+        // Save preference
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    });
+}
+
+// ========================================
+// SCROLL TO TOP BUTTON
+// ========================================
+const scrollTopBtn = document.getElementById('scroll-top');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('visible');
+    } else {
+        scrollTopBtn.classList.remove('visible');
+    }
+});
+
+if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// ========================================
+// HAMBURGER MENU
+// ========================================
+
 if (hamburger) {
     hamburger.addEventListener('click', () => {
         navMenu.classList.toggle('active');
@@ -242,6 +366,66 @@ techTags.forEach(tag => {
     tag.addEventListener('mouseleave', function() {
         this.style.transform = 'translateY(0) scale(1)';
     });
+});
+
+// ========================================
+// VANTA.JS INITIALIZATION
+// ========================================
+window.addEventListener('load', function() {
+    // Vanta Cells effect for Contact Section
+    if (document.getElementById('contact-vanta-bg')) {
+        VANTA.CELLS({
+            el: "#contact-vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            color1: 0x8c8c,
+            color2: 0xf2e735,
+            size: 1.50,
+            speed: 1.00
+        });
+    }
+
+    // Vanta WAVES effect for Services Section
+    if (document.getElementById('services-vanta-bg')) {
+        VANTA.WAVES({
+            el: "#services-vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x6366f1,
+            shininess: 40.00,
+            waveHeight: 15.00,
+            waveSpeed: 0.75,
+            zoom: 0.85
+        });
+    }
+
+    // Vanta NET effect for body background (subtle)
+    if (document.getElementById('vanta-bg')) {
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x6366f1,
+            backgroundColor: 0xf9fafb,
+            points: 8.00,
+            maxDistance: 20.00,
+            spacing: 17.00
+        });
+    }
 });
 
 console.log('Inan Infinites Website Loaded Successfully! 🚀');

@@ -8,10 +8,44 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="file_00000000fdf86230aca3e5fb7166352c.png" alt="Inan Infinites">
+            </div>
+            <div class="loader-spinner"></div>
+            <p class="loader-text">Loading Amazing Experience...</p>
+        </div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
     <!-- Vanta.js Background Container -->
     <div id="vanta-bg"></div>
+    
+    <!-- Dark Mode Toggle -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -48,7 +82,10 @@
             <div class="hero-content">
                 <h1 class="hero-title">Welcome to <span class="gradient-text">Inan Infinites</span></h1>
                 <p class="hero-quote">"We Create Emotion Worth Solutions"</p>
-                <p class="hero-subtitle">Transforming Ideas into Infinite Possibilities</p>
+                <p class="hero-subtitle">
+                    <span id="typed-text"></span>
+                    <span class="cursor">|</span>
+                </p>
                 <p class="hero-description">We deliver cutting-edge web applications, mobile solutions, and Python-powered innovations to elevate your business.</p>
                 <div class="hero-buttons">
                     <a href="#services" class="btn btn-primary">Our Services</a>
@@ -61,12 +98,12 @@
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up">
                 <h2>About <span class="gradient-text">Inan Infinites</span></h2>
                 <p>Your trusted partner in digital transformation</p>
             </div>
             <div class="about-content">
-                <div class="about-text">
+                <div class="about-text" data-aos="fade-right">
                     <h3>Innovation Without Limits</h3>
                     <p class="quote-highlight">"We Create Emotion Worth Solutions"</p>
                     <p>At Inan Infinites, we believe in pushing boundaries and creating solutions that make a difference. With expertise spanning web development, mobile applications, and Python automation, we bring your vision to life with precision and creativity.</p>
@@ -86,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="about-media">
+                <div class="about-media" data-aos="fade-left">
                     <video autoplay muted loop playsinline>
                         <source src="107303-676158761.mp4" type="video/mp4">
                     </video>
@@ -97,19 +134,14 @@
 
     <!-- Services Section -->
     <section id="services" class="services">
-        <div class="services-background">
-            <video autoplay muted loop playsinline>
-                <source src="56376-479358463.mp4" type="video/mp4">
-            </video>
-            <div class="services-overlay"></div>
-        </div>
+        <div class="services-background" id="services-vanta-bg"></div>
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up">
                 <h2>Our <span class="gradient-text">Services</span></h2>
                 <p>Comprehensive solutions tailored to your needs</p>
             </div>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="service-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -127,7 +159,7 @@
                     </ul>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="service-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
@@ -144,7 +176,7 @@
                     </ul>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
                     <div class="service-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="16 18 22 12 16 6"></polyline>
@@ -161,7 +193,7 @@
                     </ul>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
                     <div class="service-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"></circle>
@@ -179,7 +211,7 @@
                     </ul>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="500">
                     <div class="service-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
@@ -197,7 +229,7 @@
                     </ul>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="600">
                     <div class="service-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="12" y1="1" x2="12" y2="23"></line>
@@ -398,11 +430,21 @@
         </div>
     </footer>
 
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top" class="scroll-top" aria-label="Scroll to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
     <!-- Three.js and Vanta.js Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <!-- Main Script -->
     <script src="script.js"></script>
