@@ -2,20 +2,11 @@
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
-// ========================================
-// PRELOADER / LOADING SCREEN
-// ========================================
-window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    setTimeout(() => {
-        preloader.classList.add('hidden');
-        // Initialize AOS after preloader
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
-        });
-    }, 1500);
+// Initialize AOS
+AOS.init({
+    duration: 1000,
+    once: true,
+    offset: 100
 });
 
 // ========================================
