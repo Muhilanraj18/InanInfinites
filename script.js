@@ -528,4 +528,189 @@ ensureServicesVideoPlays();
 // Run on resize (throttled)
 window.addEventListener('resize', throttle(optimizeVideosForMobile, 500));
 
+// AI Chatbot Functionality
+const chatbotButton = document.getElementById('chatbotButton');
+const chatbotWindow = document.getElementById('chatbotWindow');
+const chatbotClose = document.getElementById('chatbotClose');
+const chatbotInput = document.getElementById('chatbotInput');
+const chatbotSend = document.getElementById('chatbotSend');
+const chatbotMessages = document.getElementById('chatbotMessages');
+const quickReplies = document.querySelectorAll('.quick-reply');
+
+// Chatbot responses database
+const chatbotResponses = {
+    'services': {
+        keywords: ['service', 'services', 'what do you do', 'offerings', 'provide'],
+        response: "We offer comprehensive digital solutions including:\n\n• Web Development (Responsive, E-commerce, CMS)\n• Mobile App Development (iOS & Android)\n• Python Development (Automation, ML, APIs)\n• Cloud Solutions (AWS, Azure, GCP)\n• UI/UX Design\n\nWhich service interests you the most?"
+    },
+    'technologies': {
+        keywords: ['technology', 'technologies', 'tech stack', 'tools', 'framework'],
+        response: "We work with cutting-edge technologies:\n\n🌐 Frontend: React, Vue.js, Angular\n⚙️ Backend: Node.js, Python, Django, Flask\n📱 Mobile: React Native, Flutter\n☁️ Cloud: AWS, Azure, Docker, Kubernetes\n🤖 AI/ML: TensorFlow, scikit-learn\n💾 Databases: PostgreSQL, MongoDB\n\nWhat would you like to know more about?"
+    },
+    'contact': {
+        keywords: ['contact', 'email', 'phone', 'reach', 'get in touch'],
+        response: "I'd love to connect you with our team! 📞\n\n📧 Email: contact@inaninfinites.com\n📱 Phone: +1 (555) 123-4567\n\nYou can also scroll down to our contact section to send us a message directly. We typically respond within 24 hours!"
+    },
+    'pricing': {
+        keywords: ['price', 'pricing', 'cost', 'quote', 'budget'],
+        response: "Our pricing is customized based on your specific needs and project scope. 💰\n\nFactors we consider:\n• Project complexity\n• Timeline requirements\n• Technology stack\n• Ongoing support needs\n\nWould you like to schedule a free consultation to discuss your project?"
+    },
+    'about': {
+        keywords: ['about', 'company', 'team', 'who are you', 'experience'],
+        response: "We're Inan Infinites - your trusted partner in digital transformation! 🚀\n\n✨ \"We Create Emotion Worth Solutions\"\n\n• 5+ years of experience\n• 100+ projects delivered\n• 50+ happy clients worldwide\n• Expert team of developers and designers\n\nWe specialize in creating innovative solutions that drive real business results!"
+    },
+    'portfolio': {
+        keywords: ['portfolio', 'work', 'projects', 'examples', 'case study'],
+        response: "We've worked on diverse projects across industries! 🎨\n\n• E-commerce platforms\n• Enterprise applications\n• Data analytics dashboards\n• Mobile apps with 100K+ downloads\n• AI/ML solutions\n\nCheck out our Portfolio section above to see some of our featured work!"
+    },
+    'timeline': {
+        keywords: ['timeline', 'how long', 'duration', 'time', 'delivery'],
+        response: "Project timelines vary based on complexity:\n\n⚡ Simple websites: 2-4 weeks\n🏗️ Custom web apps: 6-12 weeks\n📱 Mobile apps: 8-16 weeks\n🤖 AI/ML projects: 12-20 weeks\n\nWe can provide a detailed timeline after understanding your requirements!"
+    },
+    'greeting': {
+        keywords: ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good afternoon'],
+        response: "Hello! 👋 Great to hear from you!\n\nI'm here to help you learn about Inan Infinites and our services. What would you like to know about?"
+    },
+    'default': {
+        keywords: [],
+        response: "Thanks for your question! 🤔\n\nI'm an AI assistant here to help with:\n• Our services and solutions\n• Technologies we use\n• Pricing information\n• Contact details\n• Project timelines\n\nCould you rephrase your question or pick one of the quick replies below?"
+    }
+};
+
+// Toggle chatbot window
+chatbotButton.addEventListener('click', () => {
+    chatbotWindow.classList.toggle('active');
+    if (chatbotWindow.classList.contains('active')) {
+        chatbotInput.focus();
+    }
+});
+
+chatbotClose.addEventListener('click', () => {
+    chatbotWindow.classList.remove('active');
+});
+
+// Send message function
+function sendMessage(message) {
+    if (!message.trim()) return;
+
+    // Add user message
+    addMessage(message, 'user');
+    chatbotInput.value = '';
+
+    // Show typing indicator
+    showTypingIndicator();
+
+    // Get bot response after delay
+    setTimeout(() => {
+        hideTypingIndicator();
+        const response = getBotResponse(message);
+        addMessage(response, 'bot');
+    }, 1000 + Math.random() * 1000);
+}
+
+// Add message to chat
+function addMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chatbot-message ${sender}-message`;
+    
+    const avatar = document.createElement('div');
+    avatar.className = 'message-avatar';
+    
+    if (sender === 'bot') {
+        avatar.innerHTML = `
+            <video autoplay muted loop playsinline class="message-avatar-video">
+                <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
+            </video>
+        `;
+    } else {
+        avatar.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+            </svg>
+        `;
+    }
+    
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    const p = document.createElement('p');
+    p.textContent = text;
+    p.style.whiteSpace = 'pre-line';
+    content.appendChild(p);
+    
+    messageDiv.appendChild(avatar);
+    messageDiv.appendChild(content);
+    
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+// Get bot response
+function getBotResponse(message) {
+    const lowerMessage = message.toLowerCase();
+    
+    for (const [key, data] of Object.entries(chatbotResponses)) {
+        if (key === 'default') continue;
+        
+        for (const keyword of data.keywords) {
+            if (lowerMessage.includes(keyword)) {
+                return data.response;
+            }
+        }
+    }
+    
+    return chatbotResponses.default.response;
+}
+
+// Typing indicator
+function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chatbot-message bot-message typing-indicator-message';
+    typingDiv.innerHTML = `
+        <div class="message-avatar">
+            <video autoplay muted loop playsinline class="message-avatar-video">
+                <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="message-content">
+            <div class="typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+    `;
+    chatbotMessages.appendChild(typingDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+function hideTypingIndicator() {
+    const typingIndicator = chatbotMessages.querySelector('.typing-indicator-message');
+    if (typingIndicator) {
+        typingIndicator.remove();
+    }
+}
+
+// Send button click
+chatbotSend.addEventListener('click', () => {
+    sendMessage(chatbotInput.value);
+});
+
+// Enter key to send
+chatbotInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        sendMessage(chatbotInput.value);
+    }
+});
+
+// Quick replies
+quickReplies.forEach(button => {
+    button.addEventListener('click', () => {
+        const message = button.getAttribute('data-message');
+        sendMessage(message);
+    });
+});
+
 console.log('Inan Infinites Website Loaded Successfully! 🚀');
+

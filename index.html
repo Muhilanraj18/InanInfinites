@@ -449,6 +449,67 @@
         </svg>
     </button>
 
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-button" id="chatbotButton">
+            <video autoplay muted loop playsinline class="chatbot-icon-video">
+                <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
+            </video>
+            <span class="chatbot-pulse"></span>
+        </div>
+        
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-header-content">
+                    <div class="chatbot-header-icon">
+                        <video autoplay muted loop playsinline class="chatbot-header-video">
+                            <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div>
+                        <h3>AI Assistant</h3>
+                        <p class="chatbot-status">Online</p>
+                    </div>
+                </div>
+                <button class="chatbot-close" id="chatbotClose">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chatbot-message bot-message">
+                    <div class="message-avatar">
+                        <video autoplay muted loop playsinline class="message-avatar-video">
+                            <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="message-content">
+                        <p>Hello! 👋 I'm your AI assistant from Inan Infinites. How can I help you today?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-quick-replies">
+                <button class="quick-reply" data-message="Tell me about your services">📋 Services</button>
+                <button class="quick-reply" data-message="What technologies do you use?">💻 Technologies</button>
+                <button class="quick-reply" data-message="How can I contact you?">📞 Contact</button>
+            </div>
+            
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type your message...">
+                <button class="chatbot-send" id="chatbotSend">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Three.js and Vanta.js Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
