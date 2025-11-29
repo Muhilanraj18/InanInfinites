@@ -2,24 +2,40 @@
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
-// Initialize AOS
+// Initialize AOS with optimized settings
 AOS.init({
-    duration: 1000,
+    duration: 800,
     once: true,
-    offset: 100
+    offset: 50,
+    disable: 'mobile' // Disable on mobile for better performance
 });
 
+// Performance optimization - Throttle scroll events
+function throttle(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
 // ========================================
-// SCROLL PROGRESS BAR
+// SCROLL PROGRESS BAR (Throttled)
 // ========================================
 const scrollProgress = document.getElementById('scroll-progress');
 
-window.addEventListener('scroll', () => {
+const updateScrollProgress = throttle(() => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrollPercentage = (scrollTop / scrollHeight) * 100;
     scrollProgress.style.width = scrollPercentage + '%';
-});
+}, 100);
+
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
 // ========================================
 // TYPING ANIMATION
@@ -116,35 +132,43 @@ if (scrollTopBtn) {
 // ========================================
 // HAMBURGER MENU
 // ========================================
+const closeMenu = document.querySelector('.close-menu');
+const menuOverlay = document.querySelector('.menu-overlay');
 
+// Function to close mobile menu
+function closeMobileMenu() {
+    navMenu.classList.remove('active');
+    hamburger.classList.remove('active');
+    if (menuOverlay) {
+        menuOverlay.classList.remove('active');
+    }
+}
+
+// Open menu with hamburger
 if (hamburger) {
     hamburger.addEventListener('click', () => {
         navMenu.classList.toggle('active');
-        
-        // Animate hamburger
-        const spans = hamburger.querySelectorAll('span');
-        if (navMenu.classList.contains('active')) {
-            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-            spans[1].style.opacity = '0';
-            spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-        } else {
-            spans[0].style.transform = 'none';
-            spans[1].style.opacity = '1';
-            spans[2].style.transform = 'none';
+        hamburger.classList.toggle('active');
+        if (menuOverlay) {
+            menuOverlay.classList.toggle('active');
         }
     });
+}
+
+// Close menu with close button
+if (closeMenu) {
+    closeMenu.addEventListener('click', closeMobileMenu);
+}
+
+// Close menu when clicking overlay
+if (menuOverlay) {
+    menuOverlay.addEventListener('click', closeMobileMenu);
 }
 
 // Close mobile menu when clicking on a link
 const navLinks = document.querySelectorAll('.nav-menu a');
 navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        const spans = hamburger.querySelectorAll('span');
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-    });
+    link.addEventListener('click', closeMobileMenu);
 });
 
 // Smooth scrolling for anchor links
@@ -380,24 +404,128 @@ window.addEventListener('load', function() {
         });
     }
 
-    // Vanta NET effect for body background (subtle)
+    // Vanta NET effect for body background (optimized)
     if (document.getElementById('vanta-bg')) {
-        VANTA.NET({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x6366f1,
-            backgroundColor: 0xf9fafb,
-            points: 8.00,
-            maxDistance: 20.00,
-            spacing: 17.00
-        });
+        // Disable Vanta on mobile for better performance
+        if (window.innerWidth > 768) {
+            VANTA.NET({
+                el: "#vanta-bg",
+                mouseControls: true,
+                touchControls: false,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0x6366f1,
+                backgroundColor: 0xf9fafb,
+                points: 6.00,
+                maxDistance: 18.00,
+                spacing: 16.00
+            });
+        }
     }
 });
+
+// ========================================
+// VIDEO OPTIMIZATION FOR MOBILE
+// ========================================
+function optimizeVideosForMobile() {
+    const isMobile = window.innerWidth <= 768;
+    const videos = document.querySelectorAll('video');
+    
+    videos.forEach(video => {
+        if (isMobile) {
+            // Ensure videos are muted and have proper attributes for autoplay on mobile
+            video.muted = true;
+            video.setAttribute('muted', '');
+            video.setAttribute('playsinline', '');
+            video.setAttribute('webkit-playsinline', '');
+            video.setAttribute('preload', 'auto');
+            
+            // Force play for mobile browsers
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Auto-play was prevented, try again on user interaction
+                    console.log('Video autoplay prevented:', error);
+                    document.addEventListener('touchstart', function playOnTouch() {
+                        video.play();
+                        document.removeEventListener('touchstart', playOnTouch);
+                    }, { once: true });
+                });
+            }
+        } else {
+            video.setAttribute('preload', 'auto');
+            video.play().catch(err => console.log('Video play error:', err));
+        }
+    });
+}
+
+// Force services video to play specifically
+function ensureServicesVideoPlays() {
+    const servicesVideo = document.querySelector('.services-video');
+    if (servicesVideo) {
+        servicesVideo.muted = true;
+        servicesVideo.setAttribute('muted', '');
+        servicesVideo.setAttribute('playsinline', '');
+        servicesVideo.setAttribute('webkit-playsinline', '');
+        
+        // Keep video playing continuously
+        const keepPlaying = () => {
+            if (servicesVideo.paused) {
+                servicesVideo.play().catch(err => console.log('Video play error:', err));
+            }
+        };
+        
+        // Check and play every 500ms
+        setInterval(keepPlaying, 500);
+        
+        // Play when scrolling
+        window.addEventListener('scroll', keepPlaying, { passive: true });
+        
+        // Play when video ends (even though it's set to loop)
+        servicesVideo.addEventListener('ended', () => {
+            servicesVideo.play();
+        });
+        
+        // Play when page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                keepPlaying();
+            }
+        });
+        
+        // Attempt to play immediately
+        const playPromise = servicesVideo.play();
+        if (playPromise !== undefined) {
+            playPromise
+                .then(() => {
+                    console.log('Services video playing successfully');
+                })
+                .catch(error => {
+                    console.log('Services video autoplay prevented, will play on scroll:', error);
+                    
+                    // Create intersection observer to play when in view
+                    const videoObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                servicesVideo.play().catch(err => console.log('Play on scroll error:', err));
+                            }
+                        });
+                    }, { threshold: 0.1 });
+                    
+                    videoObserver.observe(servicesVideo);
+                });
+        }
+    }
+}
+
+// Run on page load
+optimizeVideosForMobile();
+ensureServicesVideoPlays();
+
+// Run on resize (throttled)
+window.addEventListener('resize', throttle(optimizeVideosForMobile, 500));
 
 console.log('Inan Infinites Website Loaded Successfully! 🚀');

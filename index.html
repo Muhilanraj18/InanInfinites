@@ -2,16 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Inan Infinites - Transforming ideas into innovative digital solutions. Web development, mobile apps, AI, and cloud services.">
+    <meta name="theme-color" content="#6366f1">
     <title>Inan Infinites - Innovative Digital Solutions</title>
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Performance Optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay"></div>
 
     <!-- Scroll Progress Bar -->
     <div id="scroll-progress"></div>
@@ -41,10 +51,16 @@
         <div class="container">
             <div class="nav-wrapper">
                 <div class="logo">
-                    <img src="file_00000000fdf86230aca3e5fb7166352c.png" alt="Inan Infinites Logo">
+                    <img src="file_00000000fdf86230aca3e5fb7166352c.png" alt="Inan Infinites Logo" loading="eager">
                     <span>Inan Infinites</span>
                 </div>
                 <ul class="nav-menu">
+                    <button class="close-menu" aria-label="Close Menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#services">Services</a></li>
@@ -125,8 +141,9 @@
     <!-- Services Section -->
     <section id="services" class="services">
         <div class="services-background">
-            <video autoplay muted loop playsinline class="services-video">
-                <source src="9867271-uhd_3840_2160_24fps.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="services-video">
+                <source src="15196739-uhd_3840_2160_30fps.mp4" type="video/mp4">
+                Your browser does not support the video tag.
             </video>
             <div class="services-overlay"></div>
         </div>
@@ -385,7 +402,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="file_00000000fdf86230aca3e5fb7166352c.png" alt="Inan Infinites Logo">
+                    <img src="file_00000000fdf86230aca3e5fb7166352c.png" alt="Inan Infinites Logo" loading="lazy">
                     <h3>Inan Infinites</h3>
                     <p>"We Create Emotion Worth Solutions"</p>
                 </div>
