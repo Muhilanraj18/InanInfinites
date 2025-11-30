@@ -1419,14 +1419,13 @@ body.dark-mode .footer-bottom {
     box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
     transition: all 0.3s ease;
     position: relative;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    border: none;
     overflow: hidden;
 }
 
 .chatbot-button:hover {
     transform: scale(1.1);
     box-shadow: 0 12px 32px rgba(99, 102, 241, 0.6);
-    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .chatbot-button svg {
@@ -1442,7 +1441,7 @@ body.dark-mode .footer-bottom {
     position: absolute;
     top: 0;
     left: 0;
-    filter: brightness(0.9) contrast(1.05);
+    filter: brightness(1.1) contrast(1.1);
 }
 
 .chatbot-pulse {
@@ -1531,14 +1530,13 @@ body.dark-mode .chatbot-window {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    border: 2px solid rgba(255, 255, 255, 0.4);
 }
 
 .chatbot-header-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.95) contrast(1.05);
+    filter: brightness(1.2);
 }
 
 .chatbot-header h3 {
@@ -1621,7 +1619,6 @@ body.dark-mode .chatbot-messages {
     flex-shrink: 0;
     overflow: hidden;
     position: relative;
-    border: 2px solid rgba(99, 102, 241, 0.3);
 }
 
 .message-avatar svg {
@@ -1637,7 +1634,7 @@ body.dark-mode .chatbot-messages {
     position: absolute;
     top: 0;
     left: 0;
-    filter: brightness(0.9) contrast(1.05);
+    filter: brightness(1.1);
 }
 
 .user-message .message-avatar {
@@ -1900,12 +1897,27 @@ body.dark-mode .chatbot-input {
     /* Chatbot mobile adjustments */
     .chatbot-container {
         left: 15px;
-        bottom: 85px;
+        bottom: 20px;
+        z-index: 1001;
     }
 
     .chatbot-button {
-        width: 50px;
-        height: 50px;
+        width: 56px;
+        height: 56px;
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.6);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .chatbot-button:hover {
+        box-shadow: 0 12px 35px rgba(99, 102, 241, 0.7);
+    }
+
+    .chatbot-pulse {
+        animation: pulse-ring 1.5s ease-out infinite;
+    }
+
+    .chatbot-icon-video {
+        filter: brightness(1.2) contrast(1.15);
     }
 
     .chatbot-button svg {
@@ -1917,7 +1929,8 @@ body.dark-mode .chatbot-input {
         width: calc(100vw - 30px);
         height: 500px;
         max-width: 380px;
-        bottom: 65px;
+        bottom: 80px;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
     }
 
     .services-grid {
