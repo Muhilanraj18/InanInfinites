@@ -2232,10 +2232,19 @@ body.dark-mode .chatbot-input {
     .showcase-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
+        padding: 0 1rem;
+        max-width: 100%;
     }
     
     .showcase-item {
         height: 350px;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    
+    .showcase .section-header {
+        text-align: center;
+        padding: 0 1rem;
     }
 
     .footer-content {
@@ -2403,10 +2412,23 @@ body.dark-mode .chatbot-input {
     .showcase-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        padding: 0 0.5rem;
     }
     
     .showcase-item {
         height: 280px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .showcase .container {
+        padding: 0 10px;
+    }
+    
+    .showcase .section-header {
+        text-align: center;
+        padding: 0 0.5rem;
     }
 
     .service-icon {
