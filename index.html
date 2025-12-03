@@ -13,6 +13,10 @@
     <link rel="preconnect" href="https://unpkg.com">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     
+    <!-- Preload critical videos -->
+    <link rel="preload" href="289607.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="Ai-powered marketing tools abstract.mp4" as="video" type="video/mp4">
+    
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- AOS Animation Library -->
@@ -79,7 +83,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-video">
-            <video autoplay muted loop playsinline>
+            <video autoplay muted loop playsinline preload="auto" poster="">
                 <source src="289607.mp4" type="video/mp4">
             </video>
             <div class="hero-overlay"></div>
@@ -130,7 +134,7 @@
                     </div>
                 </div>
                 <div class="about-media" data-aos="fade-left">
-                    <video autoplay muted loop playsinline>
+                    <video autoplay muted loop playsinline preload="metadata" loading="lazy">
                         <source src="107303-676158761.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -452,7 +456,7 @@
     <!-- AI Chatbot -->
     <div class="chatbot-container" id="chatbotContainer">
         <div class="chatbot-button" id="chatbotButton">
-            <video autoplay muted loop playsinline class="chatbot-icon-video">
+            <video autoplay muted loop playsinline preload="auto" class="chatbot-icon-video">
                 <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
             </video>
             <span class="chatbot-pulse"></span>
@@ -462,7 +466,7 @@
             <div class="chatbot-header">
                 <div class="chatbot-header-content">
                     <div class="chatbot-header-icon">
-                        <video autoplay muted loop playsinline class="chatbot-header-video">
+                        <video autoplay muted loop playsinline preload="metadata" class="chatbot-header-video">
                             <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -482,7 +486,7 @@
             <div class="chatbot-messages" id="chatbotMessages">
                 <div class="chatbot-message bot-message">
                     <div class="message-avatar">
-                        <video autoplay muted loop playsinline class="message-avatar-video">
+                        <video autoplay muted loop playsinline preload="metadata" class="message-avatar-video">
                             <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
                         </video>
                     </div>

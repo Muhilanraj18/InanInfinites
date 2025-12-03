@@ -618,7 +618,7 @@ function addMessage(text, sender) {
     
     if (sender === 'bot') {
         avatar.innerHTML = `
-            <video autoplay muted loop playsinline class="message-avatar-video">
+            <video autoplay muted loop playsinline preload="metadata" class="message-avatar-video">
                 <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
             </video>
         `;
@@ -669,7 +669,7 @@ function showTypingIndicator() {
     typingDiv.className = 'chatbot-message bot-message typing-indicator-message';
     typingDiv.innerHTML = `
         <div class="message-avatar">
-            <video autoplay muted loop playsinline class="message-avatar-video">
+            <video autoplay muted loop playsinline preload="metadata" class="message-avatar-video">
                 <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
             </video>
         </div>

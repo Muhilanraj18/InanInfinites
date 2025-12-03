@@ -395,6 +395,10 @@ body.dark-mode .hamburger span {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .hero-overlay {
@@ -1411,7 +1415,7 @@ body.dark-mode .footer-bottom {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    background: #000000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1442,6 +1446,8 @@ body.dark-mode .footer-bottom {
     top: 0;
     left: 0;
     filter: brightness(1.1) contrast(1.1);
+    opacity: 0.9;
+    mix-blend-mode: lighten;
 }
 
 .chatbot-pulse {
@@ -1525,7 +1531,7 @@ body.dark-mode .chatbot-window {
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.2);
+    background: #000000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1537,6 +1543,8 @@ body.dark-mode .chatbot-window {
     height: 100%;
     object-fit: cover;
     filter: brightness(1.2);
+    opacity: 0.9;
+    mix-blend-mode: lighten;
 }
 
 .chatbot-header h3 {
@@ -1612,7 +1620,7 @@ body.dark-mode .chatbot-messages {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    background: #000000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1635,6 +1643,8 @@ body.dark-mode .chatbot-messages {
     top: 0;
     left: 0;
     filter: brightness(1.1);
+    opacity: 0.9;
+    mix-blend-mode: lighten;
 }
 
 .user-message .message-avatar {
@@ -1917,7 +1927,15 @@ body.dark-mode .chatbot-input {
     }
 
     .chatbot-icon-video {
-        filter: brightness(1.2) contrast(1.15);
+        filter: brightness(0.5);
+    }
+
+    .chatbot-header-video {
+        filter: brightness(0.5);
+    }
+
+    .message-avatar-video {
+        filter: brightness(0.5);
     }
 
     .chatbot-button svg {
@@ -1927,9 +1945,12 @@ body.dark-mode .chatbot-input {
 
     .chatbot-window {
         width: calc(100vw - 30px);
-        height: 500px;
+        height: calc(100vh - 120px);
+        max-height: 550px;
         max-width: 380px;
         bottom: 80px;
+        left: 15px;
+        right: auto;
         box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
     }
 
@@ -2097,13 +2118,24 @@ body.dark-mode .chatbot-input {
     /* Chatbot extra small mobile */
     .chatbot-window {
         width: calc(100vw - 20px);
-        height: 450px;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 65px;
+        height: calc(100vh - 100px);
+        max-height: 500px;
+        left: 10px;
+        right: auto;
+        bottom: 75px;
+        transform: none;
     }
 
     .chatbot-window.active {
-        transform: translateX(-50%);
+        transform: none;
+    }
+
+    .chatbot-container {
+        left: 10px;
+    }
+
+    .chatbot-button {
+        width: 52px;
+        height: 52px;
     }
 }
