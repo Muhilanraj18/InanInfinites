@@ -434,6 +434,24 @@ function optimizeVideosForMobile() {
     const isMobile = window.innerWidth <= 768;
     const videos = document.querySelectorAll('video');
     
+    // Switch services video source for mobile
+    const servicesVideo = document.getElementById('servicesVideo');
+    if (servicesVideo) {
+        const currentSrc = servicesVideo.querySelector('source').src;
+        const desktopVideo = '15196739-uhd_3840_2160_30fps.mp4';
+        const mobileVideo = '272021.mp4';
+        
+        if (isMobile && currentSrc.includes(desktopVideo)) {
+            servicesVideo.querySelector('source').src = mobileVideo;
+            servicesVideo.load();
+            servicesVideo.play();
+        } else if (!isMobile && currentSrc.includes(mobileVideo)) {
+            servicesVideo.querySelector('source').src = desktopVideo;
+            servicesVideo.load();
+            servicesVideo.play();
+        }
+    }
+    
     videos.forEach(video => {
         if (isMobile) {
             // Ensure videos are muted and have proper attributes for autoplay on mobile
@@ -470,6 +488,13 @@ function ensureServicesVideoPlays() {
         servicesVideo.setAttribute('muted', '');
         servicesVideo.setAttribute('playsinline', '');
         servicesVideo.setAttribute('webkit-playsinline', '');
+        
+        // Remove any transforms on mobile
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            servicesVideo.style.transform = 'none';
+            servicesVideo.style.webkitTransform = 'none';
+        }
         
         // Keep video playing continuously
         const keepPlaying = () => {
@@ -710,6 +735,139 @@ quickReplies.forEach(button => {
         const message = button.getAttribute('data-message');
         sendMessage(message);
     });
+});
+
+// ========================================
+// VANTA CLOUDS FOR MOBILE SERVICES BACKGROUND
+// ========================================
+let vantaCloudsInstance = null;
+
+function initMobileServicesBackground() {
+    const isMobile = window.innerWidth <= 768;
+    const servicesBackground = document.getElementById('servicesBackground');
+    const servicesVideo = document.getElementById('servicesVideo');
+    
+    if (isMobile) {
+        // Hide video on mobile
+        if (servicesVideo) {
+            servicesVideo.style.display = 'none';
+        }
+        
+        // Destroy existing instance first
+        if (vantaCloudsInstance) {
+            vantaCloudsInstance.destroy();
+            vantaCloudsInstance = null;
+        }
+        
+        // Initialize Vanta CLOUDS for mobile
+        if (!vantaCloudsInstance && servicesBackground && typeof VANTA !== 'undefined' && VANTA.CLOUDS) {
+            console.log('Initializing Vanta CLOUDS for mobile services...');
+            
+            vantaCloudsInstance = VANTA.CLOUDS({
+                el: servicesBackground,
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                skyColor: 0x68b8d7,
+                cloudColor: 0xadc1de,
+                cloudShadowColor: 0x183550,
+                sunColor: 0xff9919,
+                sunGlareColor: 0xff6633,
+                sunlightColor: 0xff9933,
+                speed: 1.2,
+                backgroundColor: 0x0f172a
+            });
+            console.log('Vanta CLOUDS initialized for services!');
+        }
+    } else {
+        // Show video on desktop and destroy Vanta instance
+        if (servicesVideo) {
+            servicesVideo.style.display = 'block';
+        }
+        
+        if (vantaCloudsInstance) {
+            console.log('Destroying Vanta CLOUDS (switching to desktop)');
+            vantaCloudsInstance.destroy();
+            vantaCloudsInstance = null;
+        }
+    }
+}
+
+// Initialize on load with delay to ensure libraries are loaded
+window.addEventListener('load', function() {
+    setTimeout(initMobileServicesBackground, 300);
+});
+
+// Re-initialize on resize with debounce
+let resizeTimer;
+window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(initMobileServicesBackground, 500);
+});
+
+// ========================================
+// VANTA TOPOLOGY FOR PORTFOLIO SECTION
+// ========================================
+let vantaTopologyInstance = null;
+
+function initPortfolioBackground() {
+    const portfolioBackground = document.getElementById('portfolio-vanta-bg');
+    
+    if (!vantaTopologyInstance && portfolioBackground && typeof VANTA !== 'undefined' && VANTA.TOPOLOGY) {
+        console.log('Initializing Vanta TOPOLOGY for portfolio...');
+        vantaTopologyInstance = VANTA.TOPOLOGY({
+            el: portfolioBackground,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.50,
+            scaleMobile: 1.00,
+            color: 0x8b5cf6,
+            backgroundColor: 0x0f0f0f
+        });
+        console.log('Vanta TOPOLOGY initialized!', vantaTopologyInstance);
+    }
+}
+
+// ========================================
+// VANTA CLOUDS FOR ABOUT SECTION (BOTH MOBILE & DESKTOP)
+// ========================================
+let vantaAboutInstance = null;
+
+function initAboutBackground() {
+    const aboutBackground = document.getElementById('about-vanta-bg');
+    
+    if (!vantaAboutInstance && aboutBackground && typeof VANTA !== 'undefined' && VANTA.CLOUDS) {
+        console.log('Initializing Vanta CLOUDS for About section...');
+        vantaAboutInstance = VANTA.CLOUDS({
+            el: aboutBackground,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            skyColor: 0x68b8d7,
+            cloudColor: 0xadc1de,
+            cloudShadowColor: 0x183550,
+            sunColor: 0xff9919,
+            sunGlareColor: 0xff6633,
+            sunlightColor: 0xff9933,
+            speed: 1.0,
+            backgroundColor: 0x1e1b4b
+        });
+        console.log('Vanta CLOUDS initialized for About section!', vantaAboutInstance);
+    }
+}
+
+// Initialize on load
+window.addEventListener('load', function() {
+    // Delay to ensure libraries are loaded
+    setTimeout(initPortfolioBackground, 300);
+    setTimeout(initAboutBackground, 400);
 });
 
 console.log('Inan Infinites Website Loaded Successfully! 🚀');
