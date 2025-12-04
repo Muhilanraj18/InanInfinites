@@ -2240,12 +2240,19 @@ body.dark-mode .chatbot-input {
         grid-template-columns: 1fr;
         gap: 2rem;
         justify-items: center;
+        padding: 0 1rem;
     }
     
     .showcase-item {
         height: 350px;
         width: 100%;
         max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .showcase .section-header {
+        text-align: center;
+        padding: 0 1rem;
     }
 
     .footer-content {
@@ -2414,12 +2421,23 @@ body.dark-mode .chatbot-input {
         grid-template-columns: 1fr;
         gap: 1.5rem;
         justify-items: center;
+        padding: 0 0.5rem;
     }
     
     .showcase-item {
         height: 280px;
         width: 100%;
         max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .showcase .container {
+        padding: 0 10px;
+    }
+    
+    .showcase .section-header {
+        text-align: center;
+        padding: 0 0.5rem;
     }
 
     .service-icon {
