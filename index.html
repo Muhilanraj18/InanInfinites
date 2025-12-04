@@ -10,17 +10,17 @@
     <!-- Performance Optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://unpkg.com">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    
-    <!-- Preload critical videos -->
-    <link rel="preload" href="289607.mp4" as="video" type="video/mp4">
-    <link rel="preload" href="Ai-powered marketing tools abstract.mp4" as="video" type="video/mp4">
     
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- AOS Animation Library - Loaded async -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <!-- Defer non-critical scripts -->
+    <script>
+        // Only disable Vanta.js on very low-end devices
+        window.disableVanta = navigator.hardwareConcurrency < 2;
+    </script>
 </head>
 <body>
 
@@ -55,7 +55,7 @@
         <div class="container">
             <div class="nav-wrapper">
                 <div class="logo">
-                    <img src="file_00000000fdf86230aca3e5fb7166352c.png" alt="Inan Infinites Logo" loading="eager">
+                    <img src="98960.png" alt="Inan Infinites Logo" loading="eager">
                     <span>Inan Infinites</span>
                 </div>
                 <ul class="nav-menu">
@@ -83,7 +83,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-video">
-            <video autoplay muted loop playsinline preload="auto" poster="">
+            <video autoplay muted loop playsinline preload="metadata" poster="">
                 <source src="289607.mp4" type="video/mp4">
             </video>
             <div class="hero-overlay"></div>
@@ -135,7 +135,7 @@
                     </div>
                 </div>
                 <div class="about-media" data-aos="fade-left">
-                    <video autoplay muted loop playsinline preload="metadata" loading="lazy">
+                    <video muted loop playsinline preload="none" loading="lazy" data-autoplay>
                         <source src="107303-676158761.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -146,7 +146,7 @@
     <!-- Services Section -->
     <section id="services" class="services">
         <div class="services-background" id="servicesBackground">
-            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="services-video" id="servicesVideo">
+            <video autoplay muted loop playsinline webkit-playsinline preload="none" class="services-video" id="servicesVideo" loading="lazy">
                 <source src="15196739-uhd_3840_2160_30fps.mp4" type="video/mp4" media="(min-width: 769px)">
                 <source src="272021.mp4" type="video/mp4" media="(max-width: 768px)">
                 Your browser does not support the video tag.
@@ -272,12 +272,12 @@
         <div id="portfolio-vanta-bg" class="vanta-container"></div>
         <div class="container">
             <div class="section-header">
-                <h2><span style="color: #5e4e96;">Our</span> <span class="gradient-text">Work</span></h2>
+                <h2><span style="color: #ffffff;">Our</span> <span class="gradient-text">Work</span></h2>
                 <p>Showcasing excellence in every project</p>
             </div>
             <div class="portfolio-content">
                 <div class="portfolio-video">
-                    <video autoplay muted loop playsinline>
+                    <video muted loop playsinline preload="none" loading="lazy" data-autoplay>
                         <source src="91562-629172467.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -321,7 +321,7 @@
             </div>
             <div class="showcase-grid">
                 <div class="showcase-item">
-                    <video autoplay muted loop playsinline>
+                    <video muted loop playsinline preload="none" loading="lazy" data-autoplay>
                         <source src="27186-362518474.mp4" type="video/mp4">
                     </video>
                     <div class="showcase-overlay">
@@ -330,7 +330,7 @@
                     </div>
                 </div>
                 <div class="showcase-item">
-                    <video autoplay muted loop playsinline>
+                    <video muted loop playsinline preload="none" loading="lazy" data-autoplay>
                         <source src="20911-313314375.mp4" type="video/mp4">
                     </video>
                     <div class="showcase-overlay">
@@ -339,7 +339,7 @@
                     </div>
                 </div>
                 <div class="showcase-item">
-                    <video autoplay muted loop playsinline>
+                    <video muted loop playsinline preload="none" loading="lazy" data-autoplay>
                         <source src="15196747-uhd_3840_2160_30fps.mp4" type="video/mp4">
                     </video>
                     <div class="showcase-overlay">
@@ -348,7 +348,7 @@
                     </div>
                 </div>
                 <div class="showcase-item">
-                    <video autoplay muted loop playsinline>
+                    <video muted loop playsinline preload="none" loading="lazy" data-autoplay>
                         <source src="9867271-uhd_3840_2160_24fps.mp4" type="video/mp4">
                     </video>
                     <div class="showcase-overlay">
@@ -430,7 +430,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="file_00000000fdf86230aca3e5fb7166352c.png" alt="Inan Infinites Logo" loading="lazy">
+                    <img src="98960.png" alt="Inan Infinites Logo" loading="lazy">
                     <h3>Inan Infinites</h3>
                     <p>"We Create Emotion Worth Solutions"</p>
                 </div>
@@ -480,8 +480,8 @@
     <!-- AI Chatbot -->
     <div class="chatbot-container" id="chatbotContainer">
         <div class="chatbot-button" id="chatbotButton">
-            <video autoplay muted loop playsinline preload="auto" class="chatbot-icon-video">
-                <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
+            <video muted loop playsinline preload="none" class="chatbot-icon-video" data-autoplay>
+                <source src="Cloud robotics abstract.mp4" type="video/mp4">
             </video>
             <span class="chatbot-pulse"></span>
         </div>
@@ -490,8 +490,8 @@
             <div class="chatbot-header">
                 <div class="chatbot-header-content">
                     <div class="chatbot-header-icon">
-                        <video autoplay muted loop playsinline preload="metadata" class="chatbot-header-video">
-                            <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
+                        <video muted loop playsinline preload="none" class="chatbot-header-video" data-autoplay>
+                            <source src="Cloud robotics abstract.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div>
@@ -510,8 +510,8 @@
             <div class="chatbot-messages" id="chatbotMessages">
                 <div class="chatbot-message bot-message">
                     <div class="message-avatar">
-                        <video autoplay muted loop playsinline preload="metadata" class="message-avatar-video">
-                            <source src="Ai-powered marketing tools abstract.mp4" type="video/mp4">
+                        <video muted loop playsinline preload="none" class="message-avatar-video" data-autoplay>
+                            <source src="Cloud robotics abstract.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="message-content">
@@ -538,61 +538,45 @@
         </div>
     </div>
 
-    <!-- Three.js and Vanta.js Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.clouds.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+    <!-- p5.js and Vanta.js Libraries - Conditionally loaded -->
+    <script>
+        // Load Vanta.js libraries
+        if (!window.disableVanta) {
+            // Load p5.js first
+            const p5Script = document.createElement('script');
+            p5Script.src = 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js';
+            document.body.appendChild(p5Script);
+            
+            // Load Three.js
+            const threeScript = document.createElement('script');
+            threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js';
+            document.body.appendChild(threeScript);
+            
+            // Wait for both to load, then load Vanta effects
+            Promise.all([
+                new Promise(resolve => p5Script.onload = resolve),
+                new Promise(resolve => threeScript.onload = resolve)
+            ]).then(() => {
+                const scripts = [
+                    'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js',
+                    'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js',
+                    'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js',
+                    'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js'
+                ];
+                
+                scripts.forEach(src => {
+                    const s = document.createElement('script');
+                    s.src = src;
+                    document.body.appendChild(s);
+                });
+            });
+        }
+    </script>
     
-    <!-- AOS Animation Library -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- AOS Animation Library - Deferred -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     
     <!-- Main Script -->
-    <script src="script.js"></script>
-    
-    <!-- Vanta.js Initialization -->
-    <script>
-        // Wait for page to load
-        window.addEventListener('load', function() {
-            // Vanta Cells effect for Contact Section
-            if (document.getElementById('contact-vanta-bg')) {
-                VANTA.CELLS({
-                    el: "#contact-vanta-bg",
-                    mouseControls: true,
-                    touchControls: true,
-                    gyroControls: false,
-                    minHeight: 200.00,
-                    minWidth: 200.00,
-                    scale: 1.00,
-                    color1: 0x8c8c,
-                    color2: 0xf2e735,
-                    size: 1.50,
-                    speed: 1.00
-                });
-            }
-
-            // Vanta NET effect for body background (subtle)
-            if (document.getElementById('vanta-bg')) {
-                VANTA.NET({
-                    el: "#vanta-bg",
-                    mouseControls: true,
-                    touchControls: true,
-                    gyroControls: false,
-                    minHeight: 200.00,
-                    minWidth: 200.00,
-                    scale: 1.00,
-                    scaleMobile: 1.00,
-                    color: 0x6366f1,
-                    backgroundColor: 0xf9fafb,
-                    points: 8.00,
-                    maxDistance: 20.00,
-                    spacing: 17.00
-                });
-            }
-        });
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>

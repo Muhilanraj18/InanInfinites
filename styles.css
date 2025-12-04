@@ -907,6 +907,7 @@ body.dark-mode .service-features li {
     background: #000000;
     position: relative;
     overflow: hidden;
+    min-height: 600px;
 }
 
 #portfolio-vanta-bg {
@@ -916,7 +917,6 @@ body.dark-mode .service-features li {
     width: 100%;
     height: 100%;
     z-index: 0;
-    opacity: 1;
 }
 
 .portfolio .container {
@@ -2126,8 +2126,8 @@ body.dark-mode .chatbot-input {
     }
 
     .chatbot-icon-video {
-        filter: brightness(1.4) contrast(1.3);
-        opacity: 1;
+        filter: brightness(0.7) contrast(1.1);
+        opacity: 0.85;
     }
 
     .chatbot-pulse {
@@ -2135,16 +2135,14 @@ body.dark-mode .chatbot-input {
         opacity: 0.8;
     }
 
-    .chatbot-icon-video {
-        filter: brightness(0.5);
-    }
-
     .chatbot-header-video {
-        filter: brightness(0.5);
+        filter: brightness(0.7) contrast(1.1);
+        opacity: 0.85;
     }
 
     .message-avatar-video {
-        filter: brightness(0.5);
+        filter: brightness(0.7) contrast(1.1);
+        opacity: 0.85;
     }
 
     .chatbot-button svg {
@@ -2518,12 +2516,12 @@ body.dark-mode .chatbot-input {
     .chatbot-button {
         width: 52px;
         height: 52px;
-        box-shadow: 0 8px 24px rgba(99, 102, 241, 0.9);
-        border: 2px solid rgba(255, 255, 255, 0.9);
+        box-shadow: 0 8px 24px rgba(99, 102, 241, 0.7);
+        border: 2px solid rgba(255, 255, 255, 0.7);
     }
 
     .chatbot-icon-video {
-        filter: brightness(1.5) contrast(1.4);
-        opacity: 1;
+        filter: brightness(0.6) contrast(1.05);
+        opacity: 0.8;
     }
 }

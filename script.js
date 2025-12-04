@@ -1,13 +1,63 @@
+// ========================================
+// PERFORMANCE OPTIMIZATION - LAZY VIDEO LOADING
+// ========================================
+
+// Intersection Observer for lazy video loading
+const lazyVideoObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const video = entry.target;
+            
+            // Load video source
+            if (video.dataset.autoplay !== undefined) {
+                video.load();
+                
+                // Play video when loaded
+                video.addEventListener('loadeddata', () => {
+                    video.play().catch(err => console.log('Video autoplay prevented:', err));
+                }, { once: true });
+            }
+            
+            observer.unobserve(video);
+        }
+    });
+}, {
+    rootMargin: '50px' // Start loading 50px before video enters viewport
+});
+
+// Observe all videos with data-autoplay attribute
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('video[data-autoplay]').forEach(video => {
+        lazyVideoObserver.observe(video);
+    });
+    
+    // Initialize hero video immediately (critical for first paint)
+    const heroVideo = document.querySelector('.hero-video video');
+    if (heroVideo) {
+        heroVideo.play().catch(err => console.log('Hero video autoplay prevented:', err));
+    }
+    
+    // Initialize services video immediately if visible
+    const servicesVideo = document.getElementById('servicesVideo');
+    if (servicesVideo) {
+        servicesVideo.play().catch(err => console.log('Services video autoplay prevented:', err));
+    }
+});
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
-// Initialize AOS with optimized settings
-AOS.init({
-    duration: 800,
-    once: true,
-    offset: 50,
-    disable: 'mobile' // Disable on mobile for better performance
+// Initialize AOS with optimized settings - Deferred
+window.addEventListener('load', () => {
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+            disable: 'mobile' // Disable on mobile for better performance
+        });
+    }
 });
 
 // Performance optimization - Throttle scroll events
@@ -384,34 +434,22 @@ techTags.forEach(tag => {
 });
 
 // ========================================
-// VANTA.JS INITIALIZATION
+// VANTA.JS INITIALIZATION (Optimized & Conditional)
 // ========================================
 window.addEventListener('load', function() {
-    // Vanta Cells effect for Contact Section
-    if (document.getElementById('contact-vanta-bg')) {
-        VANTA.CELLS({
-            el: "#contact-vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            color1: 0x8c8c,
-            color2: 0xf2e735,
-            size: 1.50,
-            speed: 1.00
-        });
+    // Skip Vanta initialization if disabled
+    if (window.disableVanta || typeof VANTA === 'undefined') {
+        console.log('Vanta.js disabled for performance');
+        return;
     }
-
-    // Vanta NET effect for body background (optimized)
-    if (document.getElementById('vanta-bg')) {
-        // Disable Vanta on mobile for better performance
-        if (window.innerWidth > 768) {
+    
+    // Vanta NET effect for body background
+    if (document.getElementById('vanta-bg') && VANTA.NET) {
+        setTimeout(() => {
             VANTA.NET({
                 el: "#vanta-bg",
                 mouseControls: true,
-                touchControls: false,
+                touchControls: true,
                 gyroControls: false,
                 minHeight: 200.00,
                 minWidth: 200.00,
@@ -419,11 +457,51 @@ window.addEventListener('load', function() {
                 scaleMobile: 1.00,
                 color: 0x6366f1,
                 backgroundColor: 0xf9fafb,
-                points: 6.00,
-                maxDistance: 18.00,
-                spacing: 16.00
+                points: 8.00,
+                maxDistance: 20.00,
+                spacing: 17.00
             });
-        }
+        }, 500);
+    }
+    
+    // Vanta WAVES effect for About Section
+    if (document.getElementById('about-vanta-bg') && VANTA.WAVES) {
+        setTimeout(() => {
+            VANTA.WAVES({
+                el: "#about-vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0x1a1a2e,
+                shininess: 30.00,
+                waveHeight: 15.00,
+                waveSpeed: 0.75,
+                zoom: 0.80
+            });
+        }, 1000);
+    }
+
+    // Vanta Cells effect for Contact Section
+    if (document.getElementById('contact-vanta-bg') && VANTA.CELLS) {
+        setTimeout(() => {
+            VANTA.CELLS({
+                el: "#contact-vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                color1: 0x8c8c,
+                color2: 0xf2e735,
+                size: 1.50,
+                speed: 1.00
+            });
+        }, 1500);
     }
 });
 
@@ -808,7 +886,7 @@ window.addEventListener('resize', function() {
 });
 
 // ========================================
-// VANTA TOPOLOGY FOR PORTFOLIO SECTION
+// VANTA TOPOLOGY FOR PORTFOLIO SECTION  
 // ========================================
 let vantaTopologyInstance = null;
 
@@ -818,18 +896,20 @@ function initPortfolioBackground() {
     if (!vantaTopologyInstance && portfolioBackground && typeof VANTA !== 'undefined' && VANTA.TOPOLOGY) {
         console.log('Initializing Vanta TOPOLOGY for portfolio...');
         vantaTopologyInstance = VANTA.TOPOLOGY({
-            el: portfolioBackground,
+            el: "#portfolio-vanta-bg",
             mouseControls: true,
             touchControls: true,
             gyroControls: false,
             minHeight: 200.00,
             minWidth: 200.00,
-            scale: 1.50,
+            scale: 1.00,
             scaleMobile: 1.00,
-            color: 0x8b5cf6,
-            backgroundColor: 0x0f0f0f
+            color: 0x732c9a
         });
         console.log('Vanta TOPOLOGY initialized!', vantaTopologyInstance);
+    } else if (!VANTA || !VANTA.TOPOLOGY) {
+        console.log('TOPOLOGY not ready, retrying in 500ms...');
+        setTimeout(initPortfolioBackground, 500);
     }
 }
 
@@ -865,8 +945,8 @@ function initAboutBackground() {
 
 // Initialize on load
 window.addEventListener('load', function() {
-    // Delay to ensure libraries are loaded
-    setTimeout(initPortfolioBackground, 300);
+    // Delay to ensure libraries are loaded (longer for p5.js)
+    setTimeout(initPortfolioBackground, 1500);
     setTimeout(initAboutBackground, 400);
 });
 
